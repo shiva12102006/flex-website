@@ -3,37 +3,52 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 
-export default function signin(){
+export default function signin() {
 
   const router = useRouter()
 
-  const [email,setEmail] = useState("")
-  const [password,setPassword] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
-  const handleLogin = async(e)=>{
-    e.preventDefault()
+ const handleLogin = async (e) => {
+  e.preventDefault()
 
-    const res = await fetch("/api/auth/login",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-        email,
-        password
-      })
+  const res = await fetch("/api/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      email,
+      password
     })
+  })
 
-    const data = await res.json()
+  const data = await res.json()
+
+  if(res.ok && data.success){
+
+    // save user
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        name: data.name,
+        role: data.role
+      })
+    )
 
     if(data.role === "ADMIN"){
       router.push("/admin")
     }else{
       router.push("/")
     }
-  }
 
-  return(
+  }else{
+    alert(data.error)
+  }
+}
+
+  return (
 
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
 
@@ -49,14 +64,14 @@ export default function signin(){
             type="email"
             placeholder="Email"
             className="w-full border p-3 rounded"
-            onChange={(e)=>setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
 
           <input
             type="password"
             placeholder="Password"
             className="w-full border p-3 rounded"
-            onChange={(e)=>setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <button
@@ -68,9 +83,9 @@ export default function signin(){
         </form>
 
         <p className="text-center mt-4 text-sm">
-          Don't have an account? 
+          Don't have an account?
           <span
-            onClick={()=>router.push("/main/signup")}
+            onClick={() => router.push("/main/signup")}
             className="text-blue-500 cursor-pointer ml-1"
           >
             Signup

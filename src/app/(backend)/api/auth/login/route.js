@@ -1,4 +1,5 @@
-import {prisma} from "@/lib/prisma"
+import { NextResponse } from "next/server"
+import { prisma } from "@/lib/prisma"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
@@ -11,13 +12,13 @@ export async function POST(req){
   })
 
   if(!user){
-    return Response.json({error:"User not found"})
+    return NextResponse.json({error:"User not found"})
   }
 
   const match = await bcrypt.compare(password,user.password)
 
   if(!match){
-    return Response.json({error:"Wrong password"})
+    return NextResponse.json({error:"Wrong password"})
   }
 
   const token = jwt.sign(
@@ -26,13 +27,15 @@ export async function POST(req){
     {expiresIn:"1d"}
   )
 
-  const res = Response.json({
+  const res = NextResponse.json({
     success:true,
-    role:user.role
+    role:user.role,
+    name:user.name
   })
 
   res.cookies.set("token",token,{
-    httpOnly:true
+    httpOnly:true,
+    path:"/"
   })
 
   return res

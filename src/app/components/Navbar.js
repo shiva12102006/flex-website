@@ -5,21 +5,52 @@ import Link from "next/link";
 import { Menu, X, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 
-export default function Navbar() {
+
+
+ export default function Navbar() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [openDropdown, setOpenDropdown] = useState(false);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+
+    // function to read user from localStorage
+    const loadUser = () => {
+      const storedUser = localStorage.getItem("user");
+
+      console.log("===============================");
+      console.log(storedUser);
+
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      } else {
+        setUser(null);
+      }
+    };
+
+    // first time load
+    loadUser();
+
+    // 👇 important fix
+    // when user logs in another page and comes back
+    window.addEventListener("focus", loadUser);
+
+    // 👇 when localStorage changes in another tab
+    window.addEventListener("storage", loadUser);
+
+    // cleanup
+    return () => {
+      window.removeEventListener("focus", loadUser);
+      window.removeEventListener("storage", loadUser);
+    };
+
   }, []);
 
   const logout = () => {
     localStorage.removeItem("user");
     setUser(null);
+    setOpenDropdown(false);
   };
 
   return (
@@ -30,8 +61,8 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <Image src="/sanvi/logo1.png" alt="logo" height={80} width={80} />
-            <p className="text-3xl font-bold bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
+            <Image src="/sanvi/logo1.png" alt="logo" height={60} width={60} />
+            <p className="text-2xl font-bold bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
               Shanvi <span>Arts</span>
             </p>
           </Link>
@@ -65,6 +96,7 @@ export default function Navbar() {
 
             {/* Auth */}
             {!user ? (
+
               <div className="flex gap-3">
 
                 <Link href="/main/signup">
@@ -80,21 +112,60 @@ export default function Navbar() {
                 </Link>
 
               </div>
-            ) : (
-              <div className="flex items-center gap-3">
 
-                <span className="font-semibold text-green-600">
-                  {user.name}
-                </span>
+            ) : (
+
+              <div className="relative">
 
                 <button
-                  onClick={logout}
-                  className="text-red-500 border px-3 py-1 rounded hover:bg-red-50"
+                  onClick={() => setOpenDropdown(!openDropdown)}
+                  className="font-semibold text-green-600 border px-3 py-1 rounded"
                 >
-                  Logout
+                  {user.name}
                 </button>
 
+                {openDropdown && (
+                  <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-md">
+
+                    <Link href="/profile">
+                      <div
+                        onClick={() => setOpenDropdown(false)}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                      >
+                        Profile
+                      </div>
+                    </Link>
+
+                    <Link href="/orders">
+                      <div
+                        onClick={() => setOpenDropdown(false)}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                      >
+                        Orders
+                      </div>
+                    </Link>
+
+                    <Link href="/dashboard">
+                      <div
+                        onClick={() => setOpenDropdown(false)}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                      >
+                        Dashboard
+                      </div>
+                    </Link>
+
+                    <div
+                      onClick={logout}
+                      className="px-4 py-2 text-red-500 hover:bg-gray-100 cursor-pointer"
+                    >
+                      Logout
+                    </div>
+
+                  </div>
+                )}
+
               </div>
+
             )}
 
           </div>
@@ -112,43 +183,79 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
+
         <div className="md:hidden bg-white shadow-lg">
+
           <div className="flex flex-col items-center space-y-4 py-6">
 
-            <Link href="/about" onClick={() => setIsOpen(false)}>
+            <Link href="/main/about" onClick={() => setIsOpen(false)}>
               About
             </Link>
 
-            <Link href="/servise" onClick={() => setIsOpen(false)}>
+            <Link href="/main/servise" onClick={() => setIsOpen(false)}>
               Services
             </Link>
 
-            <Link href="/blog" onClick={() => setIsOpen(false)}>
+            <Link href="/main/blog" onClick={() => setIsOpen(false)}>
               Blog
             </Link>
 
-            <Link href="/contact" onClick={() => setIsOpen(false)}>
+            <Link href="/main/contact" onClick={() => setIsOpen(false)}>
               Contact
             </Link>
 
-            <Link href="/cart">Cart</Link>
+            <Link href="/cart" onClick={() => setIsOpen(false)}>
+              Cart
+            </Link>
 
             {!user ? (
               <>
-                <Link href="/signup">Signup</Link>
-                <Link href="/signin">Signin</Link>
+                <Link href="/main/signup" onClick={() => setIsOpen(false)}>
+                  Signup
+                </Link>
+
+                <Link href="/main/signin" onClick={() => setIsOpen(false)}>
+                  Signin
+                </Link>
               </>
             ) : (
-              <>
-                <p className="font-semibold">{user.name}</p>
-                <button onClick={logout} className="text-red-500">
+
+              <div className="flex flex-col items-center gap-2">
+
+                <p className="font-semibold text-green-600 text-lg">
+                  {user.name}
+                </p>
+
+                <Link href="/profile" onClick={() => setIsOpen(false)}>
+                  Profile
+                </Link>
+
+                <Link href="/orders" onClick={() => setIsOpen(false)}>
+                  Orders
+                </Link>
+
+                <Link href="/dashboard" onClick={() => setIsOpen(false)}>
+                  Dashboard
+                </Link>
+
+                <button
+                  onClick={()=>{
+                    logout()
+                    setIsOpen(false)
+                  }}
+                  className="text-red-500"
+                >
                   Logout
                 </button>
-              </>
+
+              </div>
+
             )}
 
           </div>
+
         </div>
+
       )}
 
     </nav>
