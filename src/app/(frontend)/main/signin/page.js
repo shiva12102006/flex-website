@@ -2,10 +2,12 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { useAuth } from "@/context/AuthContext" // ✅ import auth context
 
 export default function signin() {
 
   const router = useRouter()
+  const { login } = useAuth() // ✅ get login function
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -28,14 +30,11 @@ export default function signin() {
 
   if(res.ok && data.success){
 
-    // save user
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        name: data.name,
-        role: data.role
-      })
-    )
+    // ✅ save user using context (this also updates navbar instantly)
+    login({
+      name: data.name,
+      role: data.role
+    })
 
     if(data.role === "ADMIN"){
       router.push("/admin")

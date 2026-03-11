@@ -1,55 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Menu, X, ShoppingCart } from "lucide-react";
 import Image from "next/image";
+import { useAuth } from "@/context/AuthContext"; // ✅ import auth context
 
-
-
- export default function Navbar() {
+export default function Navbar() {
 
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState(null);
   const [openDropdown, setOpenDropdown] = useState(false);
 
-  useEffect(() => {
+  // ✅ get user and logout from context
+  const { user, logout } = useAuth();
 
-    // function to read user from localStorage
-    const loadUser = () => {
-      const storedUser = localStorage.getItem("user");
-
-      console.log("===============================");
-      console.log(storedUser);
-
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
-      } else {
-        setUser(null);
-      }
-    };
-
-    // first time load
-    loadUser();
-
-    // 👇 important fix
-    // when user logs in another page and comes back
-    window.addEventListener("focus", loadUser);
-
-    // 👇 when localStorage changes in another tab
-    window.addEventListener("storage", loadUser);
-
-    // cleanup
-    return () => {
-      window.removeEventListener("focus", loadUser);
-      window.removeEventListener("storage", loadUser);
-    };
-
-  }, []);
-
-  const logout = () => {
-    localStorage.removeItem("user");
-    setUser(null);
+  const handleLogout = () => {
+    logout(); // context logout
     setOpenDropdown(false);
   };
 
@@ -155,7 +121,7 @@ import Image from "next/image";
                     </Link>
 
                     <div
-                      onClick={logout}
+                      onClick={handleLogout}
                       className="px-4 py-2 text-red-500 hover:bg-gray-100 cursor-pointer"
                     >
                       Logout
@@ -240,7 +206,7 @@ import Image from "next/image";
 
                 <button
                   onClick={()=>{
-                    logout()
+                    handleLogout()
                     setIsOpen(false)
                   }}
                   className="text-red-500"

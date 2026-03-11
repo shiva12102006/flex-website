@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/footer";
 import WhatsAppWidget from "./components/WhatsAppWidget";
+import { AuthProvider } from "@/context/AuthContext";
 
 
 
@@ -26,10 +27,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+
+        <AuthProvider>
         
         {children}
          <WhatsAppWidget/>
         <Footer/>
+        </AuthProvider>
       </body>
     </html>
   );
