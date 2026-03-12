@@ -10,26 +10,32 @@ const services = [
   {
     title: "banner printing",
     desc: "Modern and scalable web applications using latest technologies.",
+    img : "/home/banner.jpg"
   },
   {
     title: "poster printing",
     desc: "Cross-platform mobile apps with high performance.",
+    img : "/home/poster.jpg"
   },
   {
     title: "t-shirt print ",
     desc: "Industry-level professional and responsive designs.",
+    img : "/home/tshirt.jpg"
   },
   {
     title: "wedding cards",
     desc: "Secure and scalable cloud infrastructure solutions.",
+    img : "/home/wedding.jpg"
   },
   {
     title: "Any event card",
     desc: "Smart AI powered automation for your business.",
+    img : "/home/event.jpg"
   },
   {
     title: "visiting cards",
     desc: "Boost your brand visibility with modern strategies.",
+    img : "/home/visiting.jpg"
   },
 ];
 
@@ -104,7 +110,7 @@ function Main() {
               className="flex-1"
             >
               <div className="h-80 bg-indigo-500 rounded-2xl shadow-2xl flex items-center justify-center text-white text-2xl font-bold">
-                <Image src="/com.jpg" height={200} width={400} alt="com" className='  w-full'/>
+                <Image src="/home/SHANVI.png" height={200} width={400} alt="com" className='  w-full'/>
               </div>
             </motion.div>
           </div>
@@ -125,6 +131,7 @@ function Main() {
                   whileHover={{ scale: 1.05 }}
                   className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border"
                 >
+                  <Image src={service.img} alt={service.title} width={400} height={300} className="rounded mb-4 object-cover bg-gray-200 border" />
                   <h3 className="text-xl font-semibold mb-4">
                     {service.title}
                   </h3>

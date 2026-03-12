@@ -9,7 +9,7 @@ export default function About() {
     return (
         <>
             <div className=" w-full h-64 bg-[url(/About/hero.png)] mt-2">
-                <h1 className=" text-6xl text-white mx-auto items-center p-20 text-extrabold"> About Us</h1>
+                <h1 className=" text-7xl ml-10  font-extrabold text-white mx-auto items-center p-20 text-extrabold"> About Us</h1>
 
 
             </div>
@@ -47,7 +47,7 @@ export default function About() {
           </h2>
 
           <p className="text-gray-600 leading-relaxed text-lg">
-            At <span className="font-semibold">Your Company Name</span>, 
+            At <span className="font-semibold">Shanvi Arts </span>, 
             we bring ideas to life through high-quality printing solutions.
             From eye-catching banners and posters to customized t-shirts and 
             elegant wedding cards, we help individuals and businesses turn 
@@ -66,8 +66,8 @@ export default function About() {
     </section>
 
 
-            <div className=" grid-cols-4 flex justify-center items-center py-16 bg-gray-100">
-                <div className="flex justify-center items-center py-16 bg-gray-100 m-5">
+            <div className=" grid-cols-4 flex justify-center items-center py-16 bg-gray-300">
+                <div className="flex justify-center items-center py-16  m-5">
 
                     <div className="bg-white shadow-xl rounded-2xl p-8 max-w-sm w-full text-center hover:shadow-2xl hover:shadow-green-300 transition duration-300 border-green-300 border-2">
 
@@ -83,7 +83,7 @@ export default function About() {
                         </div>
 
                         {/* Name */}
-                        <h2 className="text-2xl font-bold mt-6">Mangesh mama</h2>
+                        <h2 className="text-2xl font-bold mt-6">prince kumar</h2>
 
                         {/* Status */}
                         <p className="text-indigo-600 font-medium mt-2">
@@ -116,9 +116,9 @@ export default function About() {
 
                 </div>
 
-                <div className="flex justify-center items-center py-16 bg-gray-100 m-5">
+                 <div className="flex justify-center items-center py-16  m-5">
 
-                    <div className="bg-white shadow-xl rounded-2xl p-8 max-w-sm w-full text-center hover:shadow-2xl transition duration-300">
+                    <div className="bg-white shadow-xl rounded-2xl p-8 max-w-sm w-full text-center hover:shadow-2xl hover:shadow-green-300 transition duration-300 border-green-300 border-2">
 
                         {/* Owner Image */}
                         <div className="flex justify-center">
@@ -127,16 +127,16 @@ export default function About() {
                                 alt="Owner"
                                 width={160}
                                 height={160}
-                                className="rounded-full border-4 border-indigo-600 object-cover"
+                                className="rounded-full border-2 border-green-600 object-cover"
                             />
                         </div>
 
                         {/* Name */}
-                        <h2 className="text-2xl font-bold mt-6">Mangesh mama</h2>
+                        <h2 className="text-2xl font-bold mt-6">vishal kumar</h2>
 
                         {/* Status */}
                         <p className="text-indigo-600 font-medium mt-2">
-                            Founder & Owner
+                            manager and edditer
                         </p>
 
                         {/* Short Bio (optional but professional) */}
@@ -165,9 +165,9 @@ export default function About() {
 
                 </div>
 
-                <div className="flex justify-center items-center py-16 bg-gray-100 m-5">
+                 <div className="flex justify-center items-center py-16  m-5">
 
-                    <div className="bg-white shadow-xl rounded-2xl p-8 max-w-sm w-full text-center hover:shadow-2xl transition duration-300">
+                    <div className="bg-white shadow-xl rounded-2xl p-8 max-w-sm w-full text-center hover:shadow-2xl hover:shadow-green-300 transition duration-300 border-green-300 border-2">
 
                         {/* Owner Image */}
                         <div className="flex justify-center">
@@ -176,16 +176,16 @@ export default function About() {
                                 alt="Owner"
                                 width={160}
                                 height={160}
-                                className="rounded-full border-4 border-indigo-600 object-cover"
+                                className="rounded-full border-2 border-green-600 object-cover"
                             />
                         </div>
 
                         {/* Name */}
-                        <h2 className="text-2xl font-bold mt-6">Shiva ji</h2>
+                        <h2 className="text-2xl font-bold mt-6"> any one</h2>
 
                         {/* Status */}
                         <p className="text-indigo-600 font-medium mt-2">
-                            Founder & Owner
+                            worker
                         </p>
 
                         {/* Short Bio (optional but professional) */}
@@ -213,7 +213,6 @@ export default function About() {
                     </div>
 
                 </div>
-                
 
 
 

@@ -154,7 +154,7 @@ export default function Navbar() {
 
           <div className="flex flex-col items-center space-y-4 py-6">
 
-            <Link href="/main/about" onClick={() => setIsOpen(false)}>
+            <Link href="/main/About" onClick={() => setIsOpen(false)}>
               About
             </Link>
 
@@ -162,7 +162,7 @@ export default function Navbar() {
               Services
             </Link>
 
-            <Link href="/main/blog" onClick={() => setIsOpen(false)}>
+            <Link href="/main/bloge" onClick={() => setIsOpen(false)}>
               Blog
             </Link>
 
@@ -170,7 +170,7 @@ export default function Navbar() {
               Contact
             </Link>
 
-            <Link href="/cart" onClick={() => setIsOpen(false)}>
+            <Link href="/main/cart" onClick={() => setIsOpen(false)}>
               Cart
             </Link>
 
@@ -192,15 +192,15 @@ export default function Navbar() {
                   {user.name}
                 </p>
 
-                <Link href="/profile" onClick={() => setIsOpen(false)}>
+                <Link href="/admin/profile" onClick={() => setIsOpen(false)}>
                   Profile
                 </Link>
 
-                <Link href="/orders" onClick={() => setIsOpen(false)}>
+                <Link href="/admin/orders" onClick={() => setIsOpen(false)}>
                   Orders
                 </Link>
 
-                <Link href="/dashboard" onClick={() => setIsOpen(false)}>
+                <Link href="/admin/dashboard" onClick={() => setIsOpen(false)}>
                   Dashboard
                 </Link>
 
